@@ -1,0 +1,114 @@
+:root{
+    --dark-color: rgb(24,25,27);
+    --dark-color2: rgb(37, 38, 41);
+    --light-color: rgb(220,220,220);
+    --green-screen:rgb(0, 241, 193);
+}
+
+body{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#container{
+    background-color: var(--dark-color);
+    margin:0 auto;
+    width: auto;
+    
+    border-radius: 2rem;
+}
+
+#buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+#display{
+    border:0.5px solid var(--dark-color2);
+    padding:1.5rem;
+    margin:1rem;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 1rem;
+    align-items: center;
+    background-color: var(--dark-color2);
+}
+
+#indicators{
+    display: flex;
+    flex-direction: column;
+    color:var(--light-color);
+    flex-grow: 1;
+}
+
+#screen{
+    flex-grow: 1;
+    text-align: right;
+    color:var(--green-screen);
+    font-size: 3rem;
+}
+
+.braun-logo{
+    width:4rem;
+    padding:2rem;
+    padding-top:3rem;
+    padding-bottom: 8rem;
+}
+
+.line-cut{
+    height: 0.2rem;
+    background-color: var(--dark-color2);
+}
+
+.button-row{
+    display: flex;
+    flex-direction: row;
+}
+
+#body{
+    background-color: var(--dark-color);
+    padding:2rem;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction:column;
+    gap:2.5rem;
+    padding-bottom: 3rem;
+}
+
+.button{
+   
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    list-style: none;
+    line-height: 3rem;
+    font-weight: 700;
+    padding:0.5rem;
+    border-radius: 100%;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: center;
+    margin:0.5rem;
+}
+
+.button-paint-dark{
+    background-color: var(--dark-color2);
+    color: var(--light-color);
+
+}
+
+.button-paint-light{
+    background-color: var(--light-color);
+    color: var(--dark-color2);
+    
+}
+
+.button-paint-dark:hover{
+    background-color: rgb(50,50,50);
+    cursor:pointer;
+}
+
+.button-paint-light:hover{
+    background-color: rgb(245,245,245);
+    cursor:pointer;
+}

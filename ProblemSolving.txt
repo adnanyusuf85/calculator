@@ -1,0 +1,47 @@
+define problem
+develop a calculator app that contains math functions add, subtract, multiply, divide
+the user should be able to work with decimal points
+after a decimal is entered for a number a second should not be enterd
+the user should be able to enter first number, then operator and then second number
+the calclator shall have an equal key for executing and displaying the operation
+The calculator shall round decimals with large numbers
+The calculator shall handle pressing equal before numbers entry
+A clear button that clears all data
+Divide by zero error
+Backspace button
+
+Refined (ChatGPT)
+- The calculator application shall include basic mathematical operations: addition, subtraction, multiplication, and division.
+- The calculator shall support operations with decimal numbers.
+- Users must be able to enter decimal points, but only one decimal point should be allowed per number.
+- Users should enter the first number, followed by an operator, and then the second number to perform a calculation.
+- The calculator shall include an "equals" (=) button to execute the operation and display the result.
+- The calculator shall round results to a reasonable number of decimal places when dealing with large numbers.
+- The calculator should handle the case where the "=" button is pressed before entering the second number by displaying an error message or defaulting to the last valid operation.
+- The calculator shall have a "clear" button that resets all inputs and the display.
+- The calculator shall display an error message for division by zero operations.
+- The calculator shall include a "backspace" button to allow users to delete the last entered digit or character.
+
+
+SRS Refined (ChatGPT)
+The calculator application shall support basic arithmetic operations including addition, subtraction, multiplication, and division.
+The application shall support decimal arithmetic, allowing users to input and operate on decimal numbers.
+The application shall restrict the user to a single decimal point per number.
+The user shall input the first operand, select an operator, and then input the second operand to perform a calculation.
+The application shall provide an "=" button that executes the current operation and displays the result.
+The application shall round results to a maximum of [specific number] decimal places for precision in displaying large numbers.
+If the "=" button is pressed without valid second operand input, the application shall handle this scenario by [specific behavior, e.g., displaying an error message or ignoring the press].
+The application shall include a "Clear" button that resets all inputs and clears the display.
+The application shall display an error message when a division by zero operation is attempted.
+The application shall include a "Backspace" button that allows the user to remove the last entered digit or character.
+The calculator shall have appearance inspired from BRAUN 4954 calculator
+plan
+consume last operation and display result when next operator is entered (e.g 2+2-3, user should see 4 when - sign is pressed)
+makes a simple black and white calculator
+make the symbols and numbers bold
+buttons: 0,1,2,3,4,5,6,7,8,9,+,-,/,*,C,<-,=,+/-,decimal,%
+buttons that will trigger operate function: +,-,/,*,=,%
+a
+
+pseudocode
+

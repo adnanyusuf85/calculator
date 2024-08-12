@@ -1,0 +1,71 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.button{
+    padding:16px 24px;
+}
+
+.button-small{
+    padding:8px 24px;
+}
+
+.algn-cntr{
+    margin:0 auto;
+    display: block;
+}
+
+.text-right{
+    text-align: right;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.text-center{
+    text-align: center;
+}
+.mt-32{
+    margin-top: 32px;
+}
+.mt-64{
+    margin-top: 64px;
+}
+.mt-80{
+    margin-top: 80px;
+}
+.mt-128{
+    margin-top: 128px;
+}
+.fs-m2{
+    font-size:0.694rem;
+}
+
+.fs-m1{
+    font-size:0.833rem;
+}
+.fs-1{
+    font-size:1rem;
+}
+.fs-2{
+    font-size:1.2rem;
+}
+.fs-3{
+    font-size:1.44rem;
+}
+.fs-4{
+    font-size:1.728rem;
+}
+.fs-5{
+    font-size:2.074rem;
+}
+.fs-6{
+    font-size:2.488rem;
+}
+.fs-7{
+    font-size:2.986rem;    
+}
