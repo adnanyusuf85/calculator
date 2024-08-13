@@ -7,16 +7,17 @@ updateDisplay("0");
 buttons.forEach(button => button.addEventListener('click',buttonClick));
 
 const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-const operations = ["%", "÷", "×", "-","+"];
+const operators = ["%", "÷", "×", "-","+"];
 const signChange = "+/-";
 const equalSign = "=";
 const clear = "C";
 const clearEntry = "CE";
 const decimalSymbol =".";
 
-let operation = ""
-let number1 = 0;
-let number2 = 0;
+const calcState = ['blank', 'operatorStored']
+let presentCalcState = 'blank';
+let calcNumbers = [];
+let calcOperation = "";
 
 function buttonClick(e)
 {
@@ -32,7 +33,7 @@ function buttonClick(e)
         addDecimalToDisplay();
     }
 
-    if (operations.includes(buttonValue))
+    if (operators.includes(buttonValue))
     {
         applyOperation(buttonValue);
     }
@@ -75,9 +76,10 @@ function addNumberToDisplay(number)
 {
     let presentText = getDisplayText();
     let newText = "";
-    if (presentText == 0)
+    if (presentCalcState == 'blank' | presentCalcState == 'operatorStored' )
     {
         newText = number;
+        presentCalcState = 'numbersAdded';
     }
     else
     {
@@ -97,16 +99,63 @@ function addDecimalToDisplay()
 
 function applyOperation(operation)
 {
-   
+    if (presentCalcState == 'operatorStored')
+    {
+        calcOperation = operation;
+        return;
+    }
+    calcNumbers.push(getDisplayText());
+    presentCalcState = 'operatorStored';
+    if (calcNumbers.length == 2)
+    {
+        let result = calculate(calcNumbers[0], calcNumbers[1], calcOperation);
+        updateDisplay(result);
+        calcNumbers = [result];
+    }
+    calcOperation = operation;
+
+    
 }
 
 function clearDisplay()
 {
+    calcNumbers = [0];
     updateDisplay("0");
 }
 
 function backSpace()
 {
-    updateDisplay(getDisplayText().slice(0,-1));
+    let newText = getDisplayText().slice(0,-1);
+    updateDisplay(newText);
+    calcNumbers[0] = Number(newText);
 }
+
+function calculate(number1, number2, operation)
+{
+    if (operation == "+")
+    {
+        return Number(number1)+Number(number2);
+    }
+
+    if (operation == "-")
+        {
+            return Number(number1)-Number(number2);
+        }
+
+    if (operation == "/")
+    {
+        return Number(number1)/Number(number2);
+    }
+
+    if (operation == "*")
+    {
+            return Number(number1)*Number(number2);
+    }
+
+    if (operation == "%")
+    {
+        return Number(number1)%Number(number2);
+    }
+}
+
 
