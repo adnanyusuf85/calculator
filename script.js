@@ -147,10 +147,13 @@ function backSpace()
 {
     let presentText = getDisplayText();
 
-    if (presentText.length != 0)
+    if (presentText.length >1)
     {
         let newText = getDisplayText().slice(0,-1);
         updateDisplay(newText);
+    }
+    else{
+        clearDisplay();
     }
 }
 
