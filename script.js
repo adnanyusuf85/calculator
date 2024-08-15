@@ -2,6 +2,7 @@ let buttons = [...document.getElementsByClassName('button')];
 
 let screen = document.getElementById('screen');
 
+
 updateDisplay("0");
 
 buttons.forEach(button => button.addEventListener('click',buttonClick));
@@ -17,7 +18,9 @@ const decimalSymbol =".";
 const calcState = ['blank', 'operatorStored']
 let presentCalcState = 'blank';
 let calcNumbers = [];
+let number1;
 let calcOperation = "";
+let lastInput = "";
 
 function buttonClick(e)
 {
@@ -26,6 +29,7 @@ function buttonClick(e)
     if (numbers.includes(buttonValue))
     {
         addNumberToDisplay(buttonValue);
+        lastInput = 'number';
     }
 
     if (buttonValue == ".")
@@ -36,6 +40,7 @@ function buttonClick(e)
     if (operators.includes(buttonValue))
     {
         applyOperation(buttonValue);
+        lastInput = 'operator';
     }
 
     if (buttonValue == signChange)
@@ -45,7 +50,7 @@ function buttonClick(e)
 
     if (buttonValue == equalSign)
     {
-        getResult();
+        updateDisplay(getResult());
     }
 
     if (buttonValue == clear)
@@ -62,9 +67,21 @@ function buttonClick(e)
 function updateDisplay(text)
 {
     if (text=="")
-        screen.innerText = "0";
+        modifiedText = "0";
     else
-        screen.innerText = text;    
+    {
+        if (text > 1e8)
+        {
+            document.getElementById('exponent-indicator').classList.add('exponent-on');
+            modifiedText = (Number(text)/1e8).toString().slice(0,8);    
+        }
+        else
+        {
+            document.getElementById('exponent-indicator').classList.remove('exponent-on');
+            modifiedText = text; 
+        }
+        screen.innerText = modifiedText;    
+    }
 }
 
 function getDisplayText()
@@ -76,16 +93,16 @@ function addNumberToDisplay(number)
 {
     let presentText = getDisplayText();
     let newText = "";
-    if (presentCalcState == 'blank' | presentCalcState == 'operatorStored' )
+    if ((presentText === "0" | calcOperation != '') & lastInput!='number')
     {
         newText = number;
-        presentCalcState = 'numbersAdded';
     }
     else
     {
         newText = presentText+number;
     }
     updateDisplay(newText);
+    
 }
 
 function addDecimalToDisplay()
@@ -99,35 +116,42 @@ function addDecimalToDisplay()
 
 function applyOperation(operation)
 {
-    if (presentCalcState == 'operatorStored')
+    if (lastInput == 'operator')
     {
         calcOperation = operation;
         return;
     }
-    calcNumbers.push(getDisplayText());
-    presentCalcState = 'operatorStored';
-    if (calcNumbers.length == 2)
-    {
-        let result = calculate(calcNumbers[0], calcNumbers[1], calcOperation);
-        updateDisplay(result);
-        calcNumbers = [result];
-    }
-    calcOperation = operation;
 
+    if (calcOperation == '')
+    {
+        calcOperation = operation;
+        calcNumbers[0] = getDisplayText();
+    }
+    else
+    {
+        calcNumbers = [getResult()];
+        updateDisplay(calcNumbers[0]);
+        calcOperation = operation;
+    }
     
 }
 
 function clearDisplay()
 {
-    calcNumbers = [0];
-    updateDisplay("0");
+    setBlank();
+    calcOperation = '';
+    lastInput = '';
 }
 
 function backSpace()
 {
-    let newText = getDisplayText().slice(0,-1);
-    updateDisplay(newText);
-    calcNumbers[0] = Number(newText);
+    let presentText = getDisplayText();
+
+    if (presentText.length != 0)
+    {
+        let newText = getDisplayText().slice(0,-1);
+        updateDisplay(newText);
+    }
 }
 
 function calculate(number1, number2, operation)
@@ -142,12 +166,12 @@ function calculate(number1, number2, operation)
             return Number(number1)-Number(number2);
         }
 
-    if (operation == "/")
+    if (operation == "÷")
     {
         return Number(number1)/Number(number2);
     }
 
-    if (operation == "*")
+    if (operation == "×")
     {
             return Number(number1)*Number(number2);
     }
@@ -156,6 +180,23 @@ function calculate(number1, number2, operation)
     {
         return Number(number1)%Number(number2);
     }
+}
+
+function getResult()
+{
+    calcNumbers[1] = getDisplayText();
+    let result = calculate(calcNumbers[0], calcNumbers[1], calcOperation);
+    calcNumbers = [result];
+    presentCalcState = 'resultOutput';
+    calcOperation = '';
+    return result;
+}
+
+function setBlank()
+{
+    updateDisplay("0");
+
+    calcNumbers = [];
 }
 
 

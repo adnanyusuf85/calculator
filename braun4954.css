@@ -112,3 +112,7 @@ body{
     background-color: rgb(245,245,245);
     cursor:pointer;
 }
+
+.exponent-on{
+    color:var(--green-screen);
+}
